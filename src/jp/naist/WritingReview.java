@@ -12,7 +12,7 @@ public class WritingReview extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("review.fxml"));
         primaryStage.setScene(new Scene(root, 800, 275));
-        primaryStage.setTitle("Research Writing WritingReview");
+        primaryStage.setTitle("Research Writing Review");
         primaryStage.show();
     }
 
