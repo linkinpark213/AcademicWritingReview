@@ -1,9 +1,10 @@
 # NAIST Research Writing Review Assistant
 
+=========== NOT UNDER ACTIVE DEVELOPMENT ================
+
 Review assistant for the research writing course in NAIST.
 
 This project is based on JavaFX, which is included in Java 1.8.
-
 ## Usage
 ### 1. Install Java Runtime Environment.
 Please make sure that you have installed [Java Runtime Environment](https://java.com/en/download/).
@@ -16,6 +17,6 @@ The key to a successful method is to provide just the right amount of $details$
 ### 3. Run the jar file
 After creating the txt file, run 
 ```
-java -jar ResearchWritingReview-1.0.jar
+java -jar ResearchWritingReview-0.2.jar
 ```     
 in the directory.
