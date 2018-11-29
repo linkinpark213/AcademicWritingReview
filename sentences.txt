@@ -25,7 +25,7 @@ The results section should answer your $research questions$
 The order of the results presented should follow the order of the $method section$
 When you want to present exact numbers, use a $table$
 When you want the reader to see trends and relationships, you should use a $figure$
-The discussion section is the place to interpret your results, $explain$ what's new and why is matters
+The discussion section is the place to interpret your results, $explain$ what's new and why it matters
 The title is the single most important $phrase$ in a scientific document
 The title attracts readers' attention, describes the $content$ and facilitates information retrieval
 Using $capital$ letters in a heading depends on the level of heading

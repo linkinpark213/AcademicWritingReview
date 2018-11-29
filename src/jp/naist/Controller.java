@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class Controller {
 
@@ -25,11 +26,18 @@ public class Controller {
     @FXML
     private Text resultText;
     @FXML
+    private Text stateText;
+    @FXML
     private Button nextButton;
-    private int questionNumber = -1;
+    @FXML
+    private Button resetButton;
+    private int finishedNumber = 0;
+    private int questionNumber;
+    private int questionCount = -1;
     private ArrayList<String> foreTexts = new ArrayList<>();
     private ArrayList<String> postTexts = new ArrayList<>();
     private ArrayList<String> answers = new ArrayList<>();
+    private Stack<Integer> shuffleStack;
 
     private boolean isAnswerCorrect(int questionNumber, String answer) {
         return answers.get(questionNumber).toLowerCase().equals(answer.toLowerCase());
@@ -43,13 +51,17 @@ public class Controller {
             if (event.isControlDown()) {
                 handleNextButtonPressed();
             } else {
-                String answer = answerTextField.getText();
-                boolean isCorrect = isAnswerCorrect(questionNumber, answer);
-                if (isCorrect) {
-                    resultText.setText("Correct!");
-                    handleNextButtonPressed();
+                if (finishedNumber == questionCount) {
+                    initiateTest();
                 } else {
-                    resultText.setText("The answer should be: " + answers.get(questionNumber));
+                    String answer = answerTextField.getText();
+                    boolean isCorrect = isAnswerCorrect(questionNumber, answer);
+                    if (isCorrect) {
+                        resultText.setText("Correct!");
+                        handleNextButtonPressed();
+                    } else {
+                        resultText.setText("The answer should be: " + answers.get(questionNumber));
+                    }
                 }
             }
         }
@@ -57,11 +69,39 @@ public class Controller {
 
     @FXML
     private void handleNextButtonPressed() {
-        resultText.setText("");
+        finishedNumber++;
+        loadNext();
+    }
+
+
+    private void loadNext() {
         answerTextField.setText("");
-        questionNumber = (int) (Math.random() * answers.size());
-        foreText.setText(foreTexts.get(questionNumber));
-        postText.setText(postTexts.get(questionNumber));
+        if (shuffleStack.isEmpty()) {
+            resultText.setText("Practice finished. Restart?");
+        } else {
+            resultText.setText("");
+            questionNumber = shuffleStack.pop();
+            foreText.setText(foreTexts.get(questionNumber));
+            postText.setText(postTexts.get(questionNumber));
+            stateText.setText("" + finishedNumber + " done, " + (questionCount - finishedNumber) + " to go");
+        }
+    }
+
+    private void initiateTest() {
+        finishedNumber = 0;
+        questionCount = answers.size();
+        Stack<Integer> temp = new Stack<>();
+        shuffleStack = new Stack<>();
+        for (int i = 0; i < questionCount; i++) {
+            temp.push(i);
+        }
+        while (!temp.isEmpty()) {
+            int randomIndex = (int) (Math.random() * temp.size());
+            int number = temp.remove(randomIndex);
+            shuffleStack.push(number);
+        }
+        loadNext();
+
     }
 
     @FXML
@@ -86,13 +126,18 @@ public class Controller {
             postTexts.add(partTwo);
             answers.add(answer);
         }
-
         answerTextField.requestFocus();
         foreText.setFont(new Font(20));
         postText.setFont(new Font(20));
         resultText.setFont(new Font(30));
         resultText.setFill(Color.RED);
         nextButton.setFont(new Font(30));
-        handleNextButtonPressed();
+        resetButton.setFont(new Font(30));
+        initiateTest();
+    }
+
+    @FXML
+    private void handleResetButtonPressed() {
+        initiateTest();
     }
 }

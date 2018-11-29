@@ -22,7 +22,13 @@
 
         </Text>
         <Button fx:id="nextButton" onMouseClicked="#handleNextButtonPressed">
-            Next
+            Skip to Next
         </Button>
+        <Button fx:id="resetButton" onMouseClicked="#handleResetButtonPressed">
+            Reset &amp; Restart
+        </Button>
+        <Text fx:id="stateText">
+
+        </Text>
     </VBox>
 </GridPane>
