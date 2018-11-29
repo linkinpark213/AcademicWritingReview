@@ -13,6 +13,6 @@ For example:
     
 3. After finishing this, run 
     
-    java -jar AcademicWritingReview.jar
+    java -jar ResearchWritingReview-1.0.jar
      
    in the directory.
